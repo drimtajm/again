@@ -100,9 +100,9 @@ busy({result, Result}, State) ->
     {PieceSubset, Solutions} = Result,
     io:format("Got result: ~w patterns~nTook: ~w ms~n",
 	      [length(Solutions), ((Time2 - Time1) div 1000000)]),
-    lists:foreach(fun (S) ->
-			  io:format("~w~n", [S])
-		  end, Solutions),
+%%    lists:foreach(fun (S) ->
+%%			  io:format("~w~n", [S])
+%%		  end, Solutions),
     {next_state, idle, State#state{child_process = no_value}}.
 
 %%--------------------------------------------------------------------
@@ -219,10 +219,10 @@ code_change(_OldVsn, StateName, State, _Extra) ->
 example() ->
     {ok, _Pid} = start_link(worker),
 %%    PieceSubset = encode_piece_subset([1, 5, 7, 29, 32]),
-%%    PieceSubset = encode_piece_subset([1, 5, 6, 7, 8, 11, 15, 20,
-%%				       22, 24, 25, 26, 27, 28, 29]),
-    PieceSubset = encode_piece_subset([1, 5, 6, 7, 8, 9, 10, 11,
-				       12, 13, 14, 15, 16, 17, 18]),
+    PieceSubset = encode_piece_subset([1, 5, 6, 7, 8, 11, 15, 20,
+				       22, 24, 25, 26, 27, 28, 29]),
+%%    PieceSubset = encode_piece_subset([1, 5, 6, 7, 8, 9, 10, 11,
+%%				       12, 13, 14, 15, 16, 17, 18]),
     Dataset = [{piece_limit, 7}, {mission_type, puzzle_edge},
 %%	       {piece_subset, {{corner, 1}, {edges, [5, 7, 29, 32]}}}],
 %%	       {piece_subset, {{corner, 1}, {edges, [15, 20, 34, 41]}}}],
