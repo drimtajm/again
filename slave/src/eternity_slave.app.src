@@ -1,0 +1,8 @@
+%% -*- erlang -*-
+{application, eternity_slave,
+ [{description, "Slave application for eternity cluster"},
+  {vsn, "1"},
+  {registered, [eternity_slave_sup, eternity_slave]},
+  {mod, {eternity_slave_app, []}},
+  {modules, [eternity_worker]}
+ ]}.
