@@ -36,7 +36,7 @@ start_link() ->
     NumWorkers = erlang:system_info(logical_processors_available),
     Workers = lists:map(fun (Id) ->
 				Name = get_worker_name(Id),
-				?WORKER(Name, Restart, Shutdown, Type)
+				?WORKER(Name, permanent, 20000, worker)
 			end, lists:seq(1, NumWorkers)),
     put(workers, Workers),
     supervisor:start_link({local, ?SERVER}, ?MODULE, [Workers]).
@@ -64,11 +64,6 @@ init([Workers]) ->
     MaxSecondsBetweenRestarts = 3600,
 
     SupFlags = {RestartStrategy, MaxRestarts, MaxSecondsBetweenRestarts},
-
-    Restart = transient,
-    Shutdown = 20000,
-    Type = worker,
-
     {ok, {SupFlags, Workers}}.
 
 stop() ->
